@@ -1,37 +1,36 @@
 "use client";
 
-import { sidebarLinks } from "@/constants";
-import React, { FC } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface BottombarProps {}
+import { sidebarLinks } from "@/constants";
 
-const Bottombar: FC<BottombarProps> = ({}) => {
+function Bottombar() {
   const pathname = usePathname();
 
   return (
-    <section className="sticky z-10 bottom-0 w-full rounded-t-3xl bg-glassmorphism p-4 backdrop-blur-lg xs:px-7  md:hidden">
-      <div className="flex items-center justify-between gap-3 xs:gap-5 ">
+    <section className="bottombar">
+      <div className="bottombar_container">
         {sidebarLinks.map((link) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) ||
             pathname === link.route;
+
           return (
             <Link
               href={link.route}
               key={link.label}
-              className={`relative flex flex-col items-center justify-center gap-3 rounded-lg p-2 sm:px-2 sm:py-2.5 sm:flex-1 ${
-                isActive && "bg-primary-500"
-              }`}
+              className={`bottombar_link ${isActive && "bg-primary-500"}`}
             >
               <Image
                 src={link.imgURL}
                 alt={link.label}
-                width={24}
-                height={24}
+                width={16}
+                height={16}
+                className="object-contain"
               />
+
               <p className="text-subtle-medium text-light-1 max-sm:hidden">
                 {link.label.split(/\s+/)[0]}
               </p>
@@ -41,6 +40,6 @@ const Bottombar: FC<BottombarProps> = ({}) => {
       </div>
     </section>
   );
-};
+}
 
 export default Bottombar;
