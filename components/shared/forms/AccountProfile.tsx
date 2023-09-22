@@ -20,6 +20,8 @@ import { UserValidation } from "@/lib/validations/user";
 import Image from "next/image";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadThing";
+import { updateUser } from "@/lib/actions/user.action";
+import { usePathname, useRouter } from "next/navigation";
 
 interface AccountProfileProps {
   user: {
@@ -36,6 +38,8 @@ interface AccountProfileProps {
 const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("media");
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm({
     resolver: zodResolver(UserValidation),
@@ -46,6 +50,8 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
       bio: user?.bio || "",
     },
   });
+
+  console.log(user);
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -88,6 +94,20 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
     }
 
     //Update User Profile
+    await updateUser({
+      userId: user.id,
+      username: values.username,
+      name: values.name,
+      image: values.profile_photo,
+      bio: values.bio,
+      path: pathname,
+    });
+
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
+    }
   }
 
   return (
@@ -131,6 +151,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -150,6 +171,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -169,6 +191,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -188,6 +211,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ user, btnTitle }) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
