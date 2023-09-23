@@ -20,7 +20,7 @@ import { UserValidation } from "@/lib/validations/user";
 import Image from "next/image";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadThing";
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUser } from "@/lib/actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
 
 interface AccountProfileProps {

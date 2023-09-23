@@ -3,7 +3,7 @@ import ThreadsTab from "@/components/shared/ThreadsTab";
 import PostThread from "@/components/shared/forms/PostThread";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profileTabs } from "@/constants";
-import { fetchUser } from "@/lib/actions/user.action";
+import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
 import Image from "next/image";

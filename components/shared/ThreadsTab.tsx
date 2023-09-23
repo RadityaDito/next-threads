@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { TabsDemo } from "./TabsDemo";
-import { fetchUserPosts } from "@/lib/actions/user.action";
+import { fetchUserPosts } from "@/lib/actions/user.actions";
 import ThreadCard from "../cards/ThreadCard";
 
 interface ThreadsTabProps {
