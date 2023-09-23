@@ -25,6 +25,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Topbar />
+
           <main className="flex flex-row ">
             <LeftSidebar />
             <section className="flex flex-col min-h-screen items-center flex-1 bg-dark-1 pt-28 px-6 pb-10 max-md:pb-32 sm:px-10">
