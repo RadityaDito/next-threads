@@ -140,6 +140,8 @@ export async function addCommentToThread(
 
     //Save the updated original thread
     await originalThread.save();
+
+    revalidatePath(path);
   } catch (error: any) {
     throw new Error(`Error adding comment to thread: ${error.message}`);
   }
