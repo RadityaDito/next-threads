@@ -73,3 +73,40 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
     throw new Error(`Error fetching threads: ${error.message}`);
   }
 }
+
+export async function fetchThreadById(id: string) {
+  connectToDB();
+
+  try {
+    //TODO: Populate Community
+    const thread = await Thread.findById(id)
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id id name image",
+      })
+      .populate({
+        path: "children",
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id id name parentId image",
+          },
+          {
+            path: "children",
+            populate: {
+              path: "author",
+              model: User,
+              select: "_id id name parentId iamge",
+            },
+          },
+        ],
+      })
+      .exec();
+
+    return thread;
+  } catch (error: any) {
+    throw new Error(`Error fetching thread: ${error.message}`);
+  }
+}
