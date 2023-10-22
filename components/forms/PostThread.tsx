@@ -20,6 +20,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
+import { testJson } from "@/lib/actions/user.actions";
 // import { updateUser } from "@/lib/actions/user.action";
 
 interface AccountProfileProps {
@@ -55,6 +56,9 @@ function PostThread({ userId }: { userId: string }) {
     });
 
     router.push("/");
+
+    // const result = await testJson();
+    // console.log(result);
   };
 
   return (
